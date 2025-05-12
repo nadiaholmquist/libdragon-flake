@@ -1,4 +1,4 @@
-{ pkgs, n64Pkgs, libdragon, ... }:
+{ pkgs, lib, n64Pkgs, libdragon, ... }:
 
 let
   buildEnv = pkgs.runCommand "libdragon-build-env" { } ''
@@ -9,30 +9,39 @@ let
 
   # Anything that doesn't need a MIPS toolchain to build
   basicToolNames = [
-    "n64tool" "n64sym" "ed64romconfig" "audioconv64" "mkdfs" "dumpdfs" "mkasset" "mksprite" "mkfont" "mkmodel" "n64dso" "n64dso-msym" "n64dso-extern" "rdpvalidate"
+    "n64tool"
+    "n64sym"
+    "ed64romconfig"
+    "audioconv64"
+    "mkdfs"
+    "dumpdfs"
+    "mkasset"
+    "mksprite"
+    "mkfont"
+    "mkmodel"
+    "n64dso"
+    "n64dso-msym"
+    "n64dso-extern"
+    "rdpvalidate"
+    "combexpr"
   ];
 
   # Tools that need a MIPS toolchain to build
-  mipsToolNames = [ "n64elfcompress" ];
+  mipsToolNames = [
+    "n64elfcompress"
+  ];
 
   makeTool = withBuildEnv: name: pkgs.stdenv.mkDerivation {
-    pname = "libdragon-${name}";
+    pname = name;
     version = libdragon.shortRev;
     src = libdragon;
     sourceRoot = "source/tools";
     enableParallelBuilding = true;
     passthru.toolName = name;
     preBuild = if withBuildEnv then "export N64_INST=${buildEnv}" else "";
-    buildPhase = ''
-      runHook preBuild
-      make ${name}
-      runHook postBuild
-    '';
-    installPhase = ''
-      runHook preInstall
-      make ${name}-install N64_INST=$out
-      runHook postInstall
-    '';
+    buildFlags = name;
+    installTargets = "N64_INST=$(out) ${name}-install";
+    NIX_CFLAGS_COMPILE = "-Wno-error";
   };
 
   makeBasicTool = makeTool false;
@@ -48,8 +57,8 @@ let
 
     src = libdragon;
     enableParallelBuilding = true;
-    preBuild = "export N64_INST=${buildEnv}";
-    preInstall = "export N64_INST=$out";
+    buildFlags = "N64_INST=${buildEnv}";
+    installFlags = "N64_INST=${builtins.placeholder "out"}";
   };
 in {
   inherit lib tools;

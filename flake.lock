@@ -5,11 +5,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1710146030,
-        "narHash": "sha256-SZ5L6eA7HJ/nmkzGG7/ISclqe6oZdOZTNoesiInkXPQ=",
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "b1d9ab70662946ef0850d488da1c9019f3a9752a",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
         "type": "github"
       },
       "original": {
@@ -21,11 +21,11 @@
     "libdragon": {
       "flake": false,
       "locked": {
-        "lastModified": 1722411524,
-        "narHash": "sha256-j8mPWElGMNvIu4/6bnKA0BttYuvOLt54cINhYdvQStI=",
+        "lastModified": 1746609454,
+        "narHash": "sha256-J4bI1p0O/ClJW1zFtZZ8OZwNdvX19iu+QWCTra3QvNI=",
         "owner": "DragonMinded",
         "repo": "libdragon",
-        "rev": "9bae49994bf1c796f9939ea1aa7c133813b9053f",
+        "rev": "9a9e215af4b434ddf8a46c3f4d940bb3813690dd",
         "type": "github"
       },
       "original": {
@@ -37,16 +37,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1723362943,
-        "narHash": "sha256-dFZRVSgmJkyM0bkPpaYRtG/kRMRTorUIDj8BxoOt1T4=",
+        "lastModified": 1731603435,
+        "narHash": "sha256-CqCX4JG7UiHvkrBTpYC3wcEurvbtTADLbo3Ns2CEoL8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a58bc8ad779655e790115244571758e8de055e3d",
+        "rev": "8b27c1239e5c421a2bbc2c65d52e4a6fbf2ff296",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-unstable",
+        "ref": "24.11",
         "repo": "nixpkgs",
         "type": "github"
       }

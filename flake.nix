@@ -1,5 +1,5 @@
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/24.11";
   inputs.flake-utils.url = "github:numtide/flake-utils";
   
   inputs.libdragon.url = "github:DragonMinded/libdragon/unstable";
@@ -14,7 +14,7 @@
       overlays = [pkgsOverlay];
     };
 
-    libdragonPkgs = import ./libdragon.nix { inherit pkgs n64Pkgs libdragon; };
+    libdragonPkgs = pkgs.callPackage ./libdragon.nix { inherit n64Pkgs libdragon; };
 
     tools = builtins.listToAttrs (map (pkg:
       { name = pkg.passthru.toolName; value = pkg; }
@@ -23,7 +23,7 @@
   in rec {
     packages = {
       libdragon-lib = libdragonPkgs.lib;
-      libdragon-n64-inst = import ./n64-inst.nix { inherit pkgs n64Pkgs libdragonPkgs; };
+      libdragon-n64-inst = pkgs.callPackage ./n64-inst.nix { inherit n64Pkgs libdragonPkgs; };
     } // tools;
 
     devShells.default = import ./devshell.nix {
