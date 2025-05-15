@@ -1,7 +1,13 @@
-{ pkgs, lib, n64Pkgs, libdragon, ... }:
+{
+  runCommand,
+  stdenv,
+
+  n64Pkgs,
+  libdragon,
+}:
 
 let
-  buildEnv = pkgs.runCommand "libdragon-build-env" { } ''
+  buildEnv = runCommand "libdragon-build-env" { } ''
   mkdir -p $out/bin
   ln -s ${n64Pkgs.buildPackages.binutils}/bin/mips64-elf-{ld,objcopy,ar,size} $out/bin/
   ln -s ${n64Pkgs.buildPackages.gcc}/bin/mips64-elf-{gcc,g++} $out/bin/
@@ -31,7 +37,7 @@ let
     "n64elfcompress"
   ];
 
-  makeTool = withBuildEnv: name: pkgs.stdenv.mkDerivation {
+  makeTool = withBuildEnv: name: stdenv.mkDerivation {
     pname = name;
     version = libdragon.shortRev;
     src = libdragon;
@@ -51,7 +57,7 @@ let
     (map makeBasicTool basicToolNames) ++
     (map makeMipsTool mipsToolNames);
 
-  lib = pkgs.stdenv.mkDerivation {
+  lib = stdenv.mkDerivation {
     pname = "libdragon-lib";
     version = libdragon.shortRev;
 

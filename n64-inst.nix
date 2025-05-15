@@ -1,10 +1,16 @@
-{ pkgs, n64Pkgs, libdragonPkgs, ... }:
+{
+  buildEnv,
+  n64Pkgs,
+  libdragonPkgs,
+}:
 
-pkgs.buildEnv {
+buildEnv {
   name = "libdragon-n64-inst";
-  paths = map toString ([
-    libdragonPkgs.lib
-    n64Pkgs.buildPackages.binutils
-    n64Pkgs.buildPackages.gcc
-  ] ++ libdragonPkgs.tools);
+  paths =
+    [
+      libdragonPkgs.lib
+      n64Pkgs.buildPackages.binutils
+      n64Pkgs.buildPackages.gcc
+    ]
+    ++ libdragonPkgs.tools;
 }
